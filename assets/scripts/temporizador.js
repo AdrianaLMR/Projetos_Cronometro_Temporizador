@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
     const watch = document.getElementById('watch-temporizador');
-    const btnInit = document.querySelector('.btn-init-temporizador');
     const btnPause = document.querySelector('.btn-pause-temporizador');
     const btnStop = document.querySelector('.btn-stop-temporizador');
     const btnTimes = document.querySelectorAll('.btn-times button');
@@ -39,14 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
         clearInterval(temporizador);
         watch.textContent = '00:00:00';
     }
-
-    btnInit.addEventListener('click', function() {
-        if (isNaN(tempoTotal) || tempoTotal <= 0) {
-            watch.textContent = 'Escolha abaixo um tempo! E inicie o temporizador';
-        } else {
-            iniciarTemporizador(tempoTotal);
-        }
-    });
 
     btnPause.addEventListener('click', pausarTemporizador);
 
