@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function iniciarTemporizador(tempoEmSegundos) {
+        clearInterval(temporizador);
         tempoTotal = tempoEmSegundos;
         tempoAtual = tempoEmSegundos;
         temporizador = setInterval(() => {
@@ -40,7 +41,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     btnInit.addEventListener('click', function() {
-        iniciarTemporizador(tempoTotal);
+        if (isNaN(tempoTotal) || tempoTotal <= 0) {
+            watch.textContent = 'Escolha abaixo um tempo! E inicie o temporizador';
+        } else {
+            iniciarTemporizador(tempoTotal);
+        }
     });
 
     btnPause.addEventListener('click', pausarTemporizador);
