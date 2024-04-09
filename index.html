@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/styles/styles.css">
+    <link rel="stylesheet" href="assets/styles/modal.css">
     <title>Organize seu tempo!</title>
 </head>
 <body>
@@ -26,7 +27,7 @@
             <button class="btn-stop-temporizador">Parar</button>
             
             <div class="btn-times">
-                <input type="number" placeholder="Escolha o tempo">
+                <input type="number" placeholder="Escolher">
                 <button class="btn-time-2min">2 minutos</button>
                 <button class="btn-time-5min">5 minutos</button>
                 <button class="btn-time-10min">10 minutos</button>
@@ -35,8 +36,19 @@
                 <button class="btn-time-30min">30 minutos</button>
             </div>
         </div>
+
+        <div class="modal">
+            <div class="conteudo-modal">
+                <div class="icone"><ion-icon name="timer-outline"></ion-icon></div>
+                <button class="close-modal">Desligar temporizador</button>
+            </div>
+        </div>
     </div>
     <script src="assets/scripts/cronometro.js"></script>
     <script src="assets/scripts/temporizador.js"></script>
+
+    <!--ionicons installation-->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
