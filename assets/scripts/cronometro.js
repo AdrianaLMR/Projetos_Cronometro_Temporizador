@@ -9,6 +9,21 @@ let segundos = 0;
 let minutos = 0;
 let horas = 0;
 let cronometro;
+let pause = false;
+
+const cronometroRecuperado = JSON.parse(localStorage.getItem('cron'))
+const pauseRecuperado = JSON.parse(localStorage.getItem('pausado'))
+
+if (cronometroRecuperado != null) {
+    horas = cronometroRecuperado.hora
+    minutos = cronometroRecuperado.min
+    segundos = cronometroRecuperado.seg
+    cronometroDisplay.textContent = `${formatarTempo(horas)}:${formatarTempo(minutos)}:${formatarTempo(segundos)}`
+     
+    if (!pauseRecuperado){
+        iniciarCronometro()
+    }
+}
 
 // Função para formatar o tempo exibido
 function formatarTempo(tempo) {
@@ -28,14 +43,22 @@ function iniciarCronometro() {
             }
         }
         cronometroDisplay.textContent = `${formatarTempo(horas)}:${formatarTempo(minutos)}:${formatarTempo(segundos)}`;
+        let horario = {
+            hora: horas,
+            min: minutos,
+            seg: segundos
+        }
+        localStorage.setItem('cron', JSON.stringify(horario))
     }, 1000);
     btnInit.disabled = true;
+    localStorage.setItem('pausado', false)
 }
 
 // Função para pausar o cronômetro
 function pausarCronometro() {
     clearInterval(cronometro);
     btnInit.disabled = false;
+    localStorage.setItem('pausado', true)
 }
 
 // Função para parar o cronômetro
@@ -46,6 +69,8 @@ function pararCronometro() {
     horas = 0;
     cronometroDisplay.textContent = '00:00:00';
     btnInit.disabled = false;
+    localStorage.removeItem('cron')
+    localStorage.setItem('pausado', false)
 }
 
 // Adiciona event listeners aos botões
