@@ -3,18 +3,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const btnPause = document.querySelector('.btn-pause-temporizador');
     const btnStop = document.querySelector('.btn-stop-temporizador');
     const btnTimes = document.querySelectorAll('.btn-times button');
+    const input = document.querySelector('.btn-times input')
+    const modal = document.querySelector('.modal')
+    const stopBeep = document.querySelector('.close-modal')
 
     let temporizador;
-    let tempoTotal;
     let tempoAtual;
-
+    const beep = new Audio('assets/beep.mp3')
+    
     function formatarTempo(tempo) {
         return tempo < 10 ? `0${tempo}` : tempo;
     }
 
     function iniciarTemporizador(tempoEmSegundos) {
         clearInterval(temporizador);
-        tempoTotal = tempoEmSegundos;
         tempoAtual = tempoEmSegundos;
         temporizador = setInterval(() => {
             const horas = Math.floor(tempoAtual / 3600);
@@ -22,8 +24,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const segundos = tempoAtual % 60;
             watch.textContent = `${formatarTempo(horas)}:${formatarTempo(minutos)}:${formatarTempo(segundos)}`;
             if (tempoAtual === 0) {
+                modal.style.display = 'block'
+                beep.play();
+                beep.loop = true
                 clearInterval(temporizador);
-                alert('Temporizador finalizado!');
             } else {
                 tempoAtual--;
             }
@@ -49,4 +53,22 @@ document.addEventListener('DOMContentLoaded', function() {
             iniciarTemporizador(tempoEmSegundos);
         });
     });
+
+    input.addEventListener('blur', function escolherTempo() {
+        if (this.value) {
+            const tempoEmSegundos = parseInt(this.value) * 60;
+            iniciarTemporizador(tempoEmSegundos);
+        }
+    })
+    
+    input.addEventListener('input', function impedirValorNegativo() {
+        if (this.value < 0) {
+            this.value = 0;
+        }
+    });
+
+    stopBeep.addEventListener('click', function() {
+        modal.style.display = 'none'
+        beep.loop = false
+    })
 });
